@@ -1,0 +1,17 @@
+{% set datamap = salt['pillar.get']('bluez', {
+  'lookup': salt['grains.filter_by']({
+    'Debian': {
+      'pkgs': [
+        'bluez',
+        'bluez-alsa',
+        'bluez-tools',
+      ],
+      'config_directory': '/etc/bluetooth',
+      'config_templates': 'salt://bluez/templates',
+      'svc_name': 'bluetooth',
+      'svc_state': 'running',
+      'svc_onboot': True,
+    },
+  }, default='Debian' ),
+
+}, merge=True) %}
